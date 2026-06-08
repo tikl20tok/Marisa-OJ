@@ -1,6 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
+/*
+bài này duyệt trâu được vì y<=10^6
 
+nhưng mạnh là phải chơi chu kì
+
+*/
 int main()
 {
     ios::sync_with_stdio(false);
@@ -8,41 +13,47 @@ int main()
 
     long long x,y;
     cin>>x>>y;
-    /*
-    bài này duyệt trâu cx đc vì y nhỏ
-    nhưng vs sức mạnh và tư duy thì phải chơi chu kì
-
-    sau y ngày
-    -> bắt đầu từ x, kết thúc vào ngày thứ x+y
-
-    */
-    long long start,en;
-    start=x;en=x+y;
-
     long long tong=0;
-    long long tronven=(y/7)*5;//số ngày trọn vẹn ăn nấm
+    long long tronven=(y/7)*5;//đây là phần trọn vẹn 5 ngày
     tong+=tronven;
-    //tính phần thừa ra:
+    long long i;
+
     /*
-      2 3 4 5 6 7 8 mod 7
-    = 2 3 4 5 6 0 1
-    -> ta nhắm đến những ngày mà có dư là 2 3 4 5 6
-    
-    ví dụ: 6 5 -> start=6, en=11
-    mỗi khi ta có 1 modulo thì lấy trừ đi thôi
-    6%7==6 -> số ngày là 1 (đếm từ phải sang trái)
-    11%7==3 -> số ngày là 2 (đếm từ trái sang phải)
+    ta có
+     2 3 4 5 6 7 8 mod 7
+    =2 3 4 5 6 0 1
+    và nếu dãy đó mỗi cái -2 thì mod 7 thành
+    =0 1 2 3 4 5 6
+    -> cái này giúp ta dễ dàng hơn trong việc duyệt trâu
     */
-    long long a[10],b[10];
-    a[7]=0;b[7]=0;
-    a[8]=0;b[8]=0;
+    /*
+    với phần không trọn vẹn
+    ta nên áp dụng duyệt trâu cho nó dễ và an toàn
+    */
+    long long du=y%7;//cái này là số ngày còn lại
+    for (i=0;i<du;i++)//nếu ko trọn vẹn, thì duyệt như thế này đủ để hốt hết tất cả các khúc
+    {
+        long long thu=(i+x-2)%7;//ờm cụ thể là thứ -2, do lấy modulo ròi
+        //ta phải x-2 bởi vì ở trên ta đang noi theo form -2 rồi
+        if (thu<=4)
+        {
+            tong+=1;
+        }
+        /*
+        giải thích cụ thể hơn thì nó là quy luật tịnh tiến
+        ờm
+        ví dụ ta bắt đầu vào ngày thứ 6
+        ta cộng i lên là số ngày mà ta đi lên
+        bản chất mod 7 nó vẫn quẩn quanh mấy số 0->6 để ta ra thứ thôi
+        -> ko quan tâm ngày, chỉ quan tâm thứ
+        giả sử trong phần lịch có phần trọn vẹn thì chắc chắn phần thừa là 1 đoạn liên tiếp, đơn giản là thế nên áp dụng tịnh tiến đc
+        ko bao giờ có chuyện nó ko phải đoạn
 
-    a[6]=1;a[5]=2;a[4]=3;a[3]=4;a[2]=5;
-    b[2]=1;b[3]=2;b[4]=3;b[5]=4;b[6]=5;
 
-    tong+=a[start%7];
-    tong+=b[en%7];
-
+        KHÔNG THÍCH X-2 CŨNG ĐƯỢC,
+        NẾU THẾ CHỈ CẦN CÁI thu thuộc {2,3,4,5,6}
+        */
+    }
     cout<<tong;
 
 
