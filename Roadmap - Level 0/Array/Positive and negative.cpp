@@ -22,39 +22,25 @@ int main()
         else
             pos.push_back(j);
     }
-    j=1;
-    bool kt=true;
-    for (i=1;i<neg.size();i++)
+
+    long long index=1;
+    for (index=1;index<min(pos.size(),neg.size());index++)
     {
-        if (kt==true)
-        {
-            cout<<neg[i]<<" ";
-            kt=false;
-        }
-        else
-        {
-            if (i=neg.size()-1)
-            {
-                while (j<=pos.size()-1)
-                {
-                    cout<<pos[j]<<" ";
-                    j++;
-                }
-                continue;
-            }
-
-            if (j<=pos.size())
-            {
-                cout<<pos[j]<<" ";
-                j++;
-                kt=true;
-                continue;
-            }
-            kt=false;
-        }
-
+        cout<<neg[index]<<" "<<pos[index]<<" ";
+    }
+    //process the remains
+    //index currently is +1 so don't worry about similarity
+    for (i=index;i<neg.size();i++)
+    {
+        cout<<neg[i]<<" ";
+    }
+    for (i=index;i<pos.size();i++)
+    {
+        cout<<pos[i]<<" ";
     }
 
+
+    //full ac 100%
 
 
 
