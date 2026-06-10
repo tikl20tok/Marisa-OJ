@@ -145,7 +145,29 @@ int main()
 
         insert(1, 1, n+q, actions[i].pos, actions[i].val);
     }
+
+    //this reverse loop, if use forward loop, it will completely wrong
+    /*
+    i don't know how to demonstrate this properly
+
+    but when you reverse, you like greedy
+    you give a bigger index and walk on tree, it feel like index near you
+    otherwise, you make smaller index in, and the quantity of empty reduce
+    -> bigger will more bigger and far than the empty, maybe this one break the logic of segment tree
+    */
+    for(i=n;i>=1;i--)
+    {
+        insert(1, 1, n+q, i, a[i]);
+    }
+    for (i=1;i<=n+q;i++)
+    {
+        cout<<outp[i]<<" ";
+    }
+
+
     //now, all inserted, just fill the blank
+    /*
+    this one still true due to you just need to fill empty slot
     long long index=1;
     for (i=1;i<=n+q;i++)
     {
@@ -157,6 +179,7 @@ int main()
         }
         cout<<outp[i]<<" ";
     }
+    */
 
 
     //maybe have some corner case that idk
