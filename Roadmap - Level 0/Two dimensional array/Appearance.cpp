@@ -109,9 +109,35 @@ int main()
             cin>>B[i][j];
         }
 
-    long long hashB = buildPrefixHash()
+    initPowers(max(n, x), max(m, y));
+    buildPrefixHash(A, PrefHA, n, m);
+    buildPrefixHash(B, PrefHB, x, y);
 
+    long long hashB = PrefHB[x][y];
 
+    bool found = false;
+
+    // Slide the window across Matrix A
+    for (int i = 1; i <= n - x + 1; i++) 
+    {
+        for (int j = 1; j <= m - y + 1; j++) 
+        {
+            // Cut out a subgrid matching B's dimensions
+            long long currentWindowHash = getWindowHashA(i, j, i + x - 1, j + y - 1);
+            
+            if (currentWindowHash == hashB) {
+                found = true;
+                break; 
+            }
+        }
+        if (found) 
+            break;
+    }
+
+    if (found) 
+        cout << "YES";
+    else 
+        cout << "NO";
 
 
 
