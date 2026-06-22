@@ -37,7 +37,7 @@ int main()
     cout<<dem;
 
 
-    //worse code, version 1
+    //worse code, version 1: Brute-force
 
     return 0;
 }
